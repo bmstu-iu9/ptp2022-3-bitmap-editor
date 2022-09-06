@@ -1,6 +1,17 @@
-*{
+* {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+}
+
+.page-scrollbar::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: transparent;
+}
+
+.page-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #f29f00;
+    border-radius: 5px;
 }
 
 body {
@@ -25,7 +36,6 @@ a {
     display: block;
     cursor: pointer;
 
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -49,7 +59,7 @@ a {
     padding: 5px;
 
     border-radius: 10px;
-    box-shadow: 0px 0px 7px black;
+    box-shadow: 0px 0px 10px grey;
 
     background-color: #fff;
 }
@@ -79,7 +89,16 @@ a {
     opacity: 0.6;
 }
 
-.toolbar {
+#global-params {
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    right: 10px;
+    top: 10px;
+}
+
+#toolbar {
     position: fixed;
     left: 10px;
     top: 100px;
@@ -87,29 +106,54 @@ a {
 
     background-color: #fff;
 
-    box-shadow: 0px 0px 7px black;
+    box-shadow: 0 0 10px grey;
+    border-radius: 5px;
 
     width: 50px;
 }
 
-
-.toolbar-icon-btn {
+.toolbar-btn {
+    margin-bottom: 10px;
     width: 100%;
 }
 
-.toolbar-icon-btn svg {
-    width: 36px;
-    height: 36px;
-    transition: fill 0.2s;
+.toolbar-btn:last-child {
+    margin-bottom: 0;
 }
 
-.toolbar-icon-btn:hover svg {
-    fill: #1e32cd;
+.toolbar-btn svg {
+    width: 36px;
+    height: 36px;
+    transition: color 0.2s;
+}
+
+.toolbar-btn:hover svg {
+    color: blue;
+}
+
+.toolbar-btn-active svg {
+    color: blue;
+}
+
+.canvas-wrapper {
+    position: relative;
 }
 
 #canvas {
     display: block;
+    height: 100vh;
+    width: 100vw;
 }
 
+.scale-btns {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.scale-btn {
+    width: 100px;
+    height: 100px;
+    background-color: bisque;
+}
 
 

@@ -7,108 +7,66 @@
     <title>Bitmap editor</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
-<body>
+<body class="page-scrollbar" onload="">
 <div class="container">
     <div class="boxPanel">
         <a href="index.html" class="logo-link"
-        ><img src="/images/logo.png" alt="logo" class="logo"
+        ><img src="/images/logo.png" alt="logo" class="logo" width="150"
         /></a>
         <nav class="boxPanel-nav">
             <div class="export boxPanel-nav-item">
-                <a class="export-btn boxPanel-nav-item-btn" download="">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 32 32"
-                            width="32"
-                            height="32"
-                    >
-                        <g
-                                fill="none"
-                                stroke="#000000"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                        >
-                            <path
-                                    d="M28 22 L28 30 4 30 4 22 M16 4 L16 24 M8 12 L16 4 24 12"
-                            />
-                        </g>
-                    </svg>
+                <a class="export-btn boxPanel-nav-item-btn">
+
                     <span>Экспорт изображения</span>
                 </a>
             </div>
         </nav>
     </div>
-    <aside class="toolbar">
-        <div class="toolbar-icon">
-            <button data-toolName="pen" class="toolbar-icon-btn">
-                <svg
-                        height="32"
-                        id="icon"
-                        viewBox="0 0 32 32"
-                        width="32"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                    <defs>
-                        <style>
-                            .cls-1 {
-                                fill: none;
-                            }
-                        </style>
-                    </defs>
-                    <path
-                            d="M27.3069,6.1069,30,3.4141,28.5859,2,25.8931,4.6929,24.8,3.6a1.9328,1.9328,0,0,0-2.8,0L4,21.6V28h6.4l18-18a1.9329,1.9329,0,0,0,0-2.8ZM9.6,26H6V22.4L23.4,5,27,8.6Z"
-                    />
-                    <rect
-                            height="1.9998"
-                            transform="translate(-2.0563 12.0355) rotate(-45)"
-                            width="10.7281"
-                            x="8.1359"
-                            y="7.5001"
-                    />
-                    <rect
-                            class="cls-1"
-                            data-name="&lt;Transparent Rectangle&gt;"
-                            height="32"
-                            id="_Transparent_Rectangle_"
-                            width="32"
-                    />
-                </svg>
-            </button>
-        </div>
-        <div class="toolbar-icon">
-            <button data-toolName="pencil" class="toolbar-icon-btn">
-                <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xml:space="preserve"
-                        width="100%"
-                        height="100%"
-                        version="1.1"
-                        style="
-                shape-rendering: geometricPrecision;
-                text-rendering: geometricPrecision;
-                image-rendering: optimizeQuality;
-                fill-rule: evenodd;
-                clip-rule: evenodd;
-              "
-                        viewBox="0 0 500 500"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                >
-              <g id="Layer_x0020_1">
-                <metadata id="CorelCorpID_0Corel-Layer"/>
-                  <path
-                          class="fil0"
-                          d="M300 95l105 105 -231 230 0 0 -63 22c-5,-15 -13,-28 -24,-39 -11,-11 -24,-19 -39,-24l22 -63 0 0 0 0 230 -231zm-207 362l-66 22c-5,2 -8,-1 -6,-6l22 -66c11,4 22,10 31,19 9,9 15,20 19,31zm381 -353l-78 -79c-7,-7 -19,-7 -26,0l-52 53 104 104 52 -52c8,-7 8,-19 0,-26zm-161 39c5,5 5,13 0,18l-182 182c-5,5 -13,5 -18,0 -5,-5 -5,-12 0,-17l183 -183c5,-5 12,-5 17,0zm44 44c5,5 5,12 0,17l-183 183c-5,5 -13,5 -17,0 -5,-5 -5,-13 0,-18l182 -182c5,-5 13,-5 18,0z"
-                  />
-              </g>
-            </svg>
-            </button>
-        </div>
-        <div class="toolbar-icon"></div>
-    </aside>
-    <canvas id="canvas"></canvas>
-</div>
+    <form id="global-params">
+        <p>
+            <label for="color">Цвет:</label>
+            <input type="color" name="" id="color" value="#000000">
+        </p>
+    </form>
 
-<script type="text/javascript" src="/scripts/script.js"></script>
+    <div id="toolbar">
+        <button class="toolbar-btn toolbar-btn-active" data-mode="MOVE">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                <path d="M7 19l4.394-2.59 1.86 4.661a1 1 0 0 0 1.3.558l.499-.2a1 1 0 0 0 .557-1.3l-1.86-4.66L18.5 14 7 2v17z"
+                      fill-rule="evenodd" fill="currentColor"></path>
+            </svg>
+        </button>
+        <button class="toolbar-btn" data-mode="PEN">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.4097 2.80282L19 18.1762V24C19 24.5523 18.5523 25 18 25H6C5.44771 25 5 24.5523 5 24V18.1762L10.5903 2.80282C11.069 1.48631 12.931 1.4863 13.4097 2.80282Z"
+                      stroke="currentColor" stroke-width="2"></path>
+                <path d="M8.57141 9H15.4286" stroke="currentColor" stroke-width="2"></path>
+            </svg>
+        </button>
+        <button class="toolbar-btn" data-mode="COPY">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" fill-rule="evenodd"
+                      d="M6 5h12V3a1 1 0 0 1 2 0v2h2a1 1 0 0 1 0 2h-2v10h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H6v2a1 1 0 0 1-2 0v-2H2a1 1 0 0 1 0-2h2V7H2a1 1 0 1 1 0-2h2V3a1 1 0 1 1 2 0v2zm0 2v10h12V7H6z"></path>
+            </svg>
+        </button>
+        <button class="toolbar-btn" data-mode="COMMENT">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" fill-rule="nonzero"
+                      d="M4 6v12.006L9.828 18 12 20.172 14.172 18h5.822L20 6H4zm0-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5l-3 3-3-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm4 5a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2H8z"></path>
+            </svg>
+        </button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <div class="scale-btns">
+        <button id="scale-btn-plus" class="scale-btn">+</button>
+        <button id="scale-btn-minus" class="scale-btn">-</button>
+    </div>
+
+</div>
+<script type="text/javascript" src="/scripts/constants.js"></script>
+<script type="text/javascript" src="/scripts/classes.js"></script>
+<script type="text/javascript" src="/scripts/index.js"></script>
+
+
 </body>
 </html>
