@@ -3,70 +3,114 @@
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Bitmap editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>BME</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
-<body class="page-scrollbar" onload="">
-<div class="container">
-    <div class="boxPanel">
-        <a href="index.html" class="logo-link"
-        ><img src="/images/logo.png" alt="logo" class="logo" width="150"
-        /></a>
-        <nav class="boxPanel-nav">
-            <div class="export boxPanel-nav-item">
-                <a class="export-btn boxPanel-nav-item-btn">
+<body class="page-scrollbar">
+<div id="root">
+    <div class="container">
+        <div class="boxPanel">
+            <a href="index.html" class="logo-link"
+            ><img src="/images/logo.png" alt="logo" class="logo" width="150"
+            /></a>
+            <nav class="boxPanel-nav">
+                <div class="export boxPanel-nav-item">
+                    <a class="boxPanel-nav-item-btn" id="export-link">
+                        <span>Экспорт изображения</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <form id="global-params">
+            <p>
+                <label for="color">Цвет:</label>
+                <input type="color" name="" id="color" value="#000000">
+            </p>
+        </form>
 
-                    <span>Экспорт изображения</span>
-                </a>
+        <div class="left-panel">
+            <div id="toolbar">
+                <button class="toolbar-btn toolbar-btn-active" data-mode="MOVE">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                        <path d="M7 19l4.394-2.59 1.86 4.661a1 1 0 0 0 1.3.558l.499-.2a1 1 0 0 0 .557-1.3l-1.86-4.66L18.5 14 7 2v17z"
+                              fill-rule="evenodd" fill="currentColor"></path>
+                    </svg>
+                </button>
+                <button class="toolbar-btn" data-mode="PEN">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.4097 2.80282L19 18.1762V24C19 24.5523 18.5523 25 18 25H6C5.44771 25 5 24.5523 5 24V18.1762L10.5903 2.80282C11.069 1.48631 12.931 1.4863 13.4097 2.80282Z"
+                              stroke="currentColor" stroke-width="2"></path>
+                        <path d="M8.57141 9H15.4286" stroke="currentColor" stroke-width="2"></path>
+                    </svg>
+                </button>
+                <button class="toolbar-btn" data-mode="COPY">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                              d="M6 5h12V3a1 1 0 0 1 2 0v2h2a1 1 0 0 1 0 2h-2v10h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H6v2a1 1 0 0 1-2 0v-2H2a1 1 0 0 1 0-2h2V7H2a1 1 0 1 1 0-2h2V3a1 1 0 1 1 2 0v2zm0 2v10h12V7H6z"></path>
+                    </svg>
+                </button>
+                <button class="toolbar-btn" data-mode="COMMENT">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="nonzero"
+                              d="M4 6v12.006L9.828 18 12 20.172 14.172 18h5.822L20 6H4zm0-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5l-3 3-3-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm4 5a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2H8z"></path>
+                    </svg>
+                </button>
+                <button class="toolbar-btn" data-mode="SHAPES">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M21 8.5C21 11.5376 18.5376 14 15.5 14C15.3315 14 15.1647 13.9924 15 13.9776V15.9836C15.1653 15.9945 15.332 16 15.5 16C19.6421 16 23 12.6421 23 8.5C23 4.35786 19.6421 1 15.5 1C11.3579 1 8 4.35786 8 8.5C8 8.66801 8.00552 8.83474 8.0164 9H10.0224C10.0076 8.83532 10 8.66854 10 8.5C10 5.46243 12.4624 3 15.5 3C18.5376 3 21 5.46243 21 8.5Z"
+                              fill="currentColor"></path>
+                        <mask id="g1" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="9" width="13" height="13" rx="1"></rect>
+                        </mask>
+                        <rect x="2" y="9" width="13" height="13" rx="1" stroke="currentColor" stroke-width="4"
+                              mask="url(#g1)"></rect>
+                    </svg>
+                </button>
             </div>
-        </nav>
-    </div>
-    <form id="global-params">
-        <p>
-            <label for="color">Цвет:</label>
-            <input type="color" name="" id="color" value="#000000">
-        </p>
-    </form>
+            <div id="step">
+                <button id="step-back">
 
-    <div id="toolbar">
-        <button class="toolbar-btn toolbar-btn-active" data-mode="MOVE">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
-                <path d="M7 19l4.394-2.59 1.86 4.661a1 1 0 0 0 1.3.558l.499-.2a1 1 0 0 0 .557-1.3l-1.86-4.66L18.5 14 7 2v17z"
-                      fill-rule="evenodd" fill="currentColor"></path>
-            </svg>
-        </button>
-        <button class="toolbar-btn" data-mode="PEN">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.4097 2.80282L19 18.1762V24C19 24.5523 18.5523 25 18 25H6C5.44771 25 5 24.5523 5 24V18.1762L10.5903 2.80282C11.069 1.48631 12.931 1.4863 13.4097 2.80282Z"
-                      stroke="currentColor" stroke-width="2"></path>
-                <path d="M8.57141 9H15.4286" stroke="currentColor" stroke-width="2"></path>
-            </svg>
-        </button>
-        <button class="toolbar-btn" data-mode="COPY">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" fill-rule="evenodd"
-                      d="M6 5h12V3a1 1 0 0 1 2 0v2h2a1 1 0 0 1 0 2h-2v10h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H6v2a1 1 0 0 1-2 0v-2H2a1 1 0 0 1 0-2h2V7H2a1 1 0 1 1 0-2h2V3a1 1 0 1 1 2 0v2zm0 2v10h12V7H6z"></path>
-            </svg>
-        </button>
-        <button class="toolbar-btn" data-mode="COMMENT">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" fill-rule="nonzero"
-                      d="M4 6v12.006L9.828 18 12 20.172 14.172 18h5.822L20 6H4zm0-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5l-3 3-3-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm4 5a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2H8zm0 4a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2H8z"></path>
-            </svg>
-        </button>
-    </div>
-    <canvas id="canvas"></canvas>
-    <div class="scale-btns">
-        <button id="scale-btn-plus" class="scale-btn">+</button>
-        <button id="scale-btn-minus" class="scale-btn">-</button>
-    </div>
+                </button>
+            </div>
+        </div>
 
+        <div id="scale">
+            <button id="scale-minus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+                     class="icon-1o_Rf icon_large-2Zr5i" aria-hidden="true" focusable="false"
+                     data-testid="svg-icon">
+                    <path fill="currentColor" d="M18 13H6a1 1 0 0 1 0-2h12a1 1 0 0 1 0 2z"></path>
+                </svg>
+            </button>
+            <div id="scale-percent">
+                <span id="scale-percent-value">100</span>%
+            </div>
+            <button id="scale-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+                     class="icon-1o_Rf icon_large-2Zr5i" aria-hidden="true" focusable="false"
+                     data-testid="svg-icon">
+                    <path fill="currentColor"
+                          d="M18 13h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5V6a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <canvas id="canvas"></canvas>
+
+    </div>
+    <!--    fabric.js -->
+    <script type="text/javascript" src="/scripts/fabric.js"></script>
+
+    <script type="module" src="/scripts/selectors.js"></script>
+    <script type="module" src="/scripts/index.js"></script>
+    <script type="module" src="/scripts/actions.js"></script>
+
+    <script type="module" src="/scripts/controlObjects.js"></script>
+    <script type="module" src="/scripts/scale.js"></script>
+    <script type="module" src="/scripts/pan.js"></script>
 </div>
-<script type="text/javascript" src="/scripts/constants.js"></script>
-<script type="text/javascript" src="/scripts/classes.js"></script>
-<script type="text/javascript" src="/scripts/index.js"></script>
-
-
 </body>
 </html>
