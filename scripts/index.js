@@ -18,19 +18,16 @@ window.oncontextmenu = function (ev) {
 export const canvas = new fabric.Canvas(SELECTORS.CANVAS.id, {
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight,
-    skipOffScreen: false,
     selection: false,
 });
 
 canvas.on('mouse:up', (event) => {
-    console.log(canvas.getActiveObjects().length);
     if (canvas.getActiveObjects().length > 0) {
         canvas.getActiveObjects().forEach(obj => {
-            obj.bringToFront();
-            console.log(canvas.getObjects(), obj);
+            canvas.bringToFront(obj);
         });
     }
-})
+});
 
 //================CUSTOM canvas==============
 
