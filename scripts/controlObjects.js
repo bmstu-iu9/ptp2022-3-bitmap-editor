@@ -46,15 +46,31 @@ fabric.Object.prototype.controls.clone = new fabric.Control({
 
 
 function deleteObject(eventData, transform) {
-    canvas.getActiveObjects().forEach(activeObj => canvas.remove(activeObj));
+    let target = transform.target;
+    target.forEachObject(activeObj => canvas.remove(activeObj));
+    canvas.discardActiveObject();
 }
 
 function cloneObject(eventData, transform) {
     let target = transform.target;
-    console.log(target);
-    target.clone(function (cloned) {
-        cloned.left += 40;
-        cloned.top += 40;
-        canvas.add(cloned);
-    });
+    target.clone(clonedObj => {
+        canvas.discardActiveObject();
+		clonedObj.set({
+			left: clonedObj.left + 10,
+			top: clonedObj.top + 10,
+		});
+		if (clonedObj.type === 'activeSelection') {
+			clonedObj.canvas = canvas;
+			clonedObj.forEachObject(function(obj) {
+				canvas.add(obj);
+			});
+			clonedObj.setCoords();
+		} else {
+			canvas.add(clonedObj);
+		}
+		target.top += 10;
+		target.left += 10;
+		canvas.setActiveObject(clonedObj);
+		canvas.requestRenderAll();
+    })
 }

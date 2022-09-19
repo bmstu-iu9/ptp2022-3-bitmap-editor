@@ -1,9 +1,16 @@
 import {canvas} from "./index.js";
 
+let selectableObjects = [];
+
 canvas.on('mouse:down:before', event => {
     let evt = event.e;
     if (evt.altKey) {
-        canvas.getObjects().forEach(obj => obj.selectable = false);
+        canvas.getObjects().forEach(obj => {
+            if (obj.selectable) {
+                selectableObjects.push(obj);
+                obj.selectable = false;
+            }
+        });
     }
 })
 
@@ -34,6 +41,6 @@ canvas.on('mouse:up', event => {
         canvas.setViewportTransform(canvas.viewportTransform);
         canvas.isDragging = false;
         canvas.selection = true;
-        canvas.getObjects().forEach(obj => obj.selectable = true);
+        selectableObjects.forEach(obj => obj.selectable = true);
     }
 });

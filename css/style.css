@@ -21,9 +21,9 @@ body {
 }
 
 button {
-    background: none;
+    padding: 0;
     border: none;
-
+    background-color: transparent;
     cursor: pointer;
 }
 
@@ -32,18 +32,19 @@ a {
     color: black;
 }
 
-.export-btn {
-    display: block;
-    cursor: pointer;
-
-    justify-content: center;
-    align-items: center;
+#export-link {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    transition: color 0.2s;
 }
 
-.export-btn span {
+#export-link span {
     display: block;
-    margin-top: 5px;
+}
+
+#export-link:hover {
+    color: blue;
 }
 
 
@@ -59,14 +60,14 @@ a {
     padding: 5px;
 
     border-radius: 10px;
-    box-shadow: 0px 0px 10px grey;
+    box-shadow: 0 0 10px grey;
 
     background-color: #fff;
 }
 
 .logo-link {
     display: block;
-    width:150px;
+    width: 150px;
 }
 
 .logo {
@@ -78,39 +79,27 @@ a {
 }
 
 .boxPanel-nav-item {
-    margin:auto 5px;
+    margin: auto 5px;
 }
 
-.boxPanel-nav-item-btn {
-    transition: opacity 0.2s;
-}
-
-.boxPanel-nav-item-btn:hover {
-    opacity: 0.6;
-}
-
-#global-params {
-    display: flex;
-    flex-direction: column;
-
-    position: fixed;
-    right: 10px;
-    top: 10px;
-    z-index: 2;
-}
-
-#toolbar {
+.left-panel {
     position: fixed;
     left: 10px;
     top: 100px;
-    z-index: 1;
+    z-index: 5;
+    width: 50px;
+}
 
-    background-color: #fff;
-
+.left-panel-item {
     box-shadow: 0 0 10px grey;
     border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 7px;
+    background-color: white;
+}
 
-    width: 50px;
+#toolbar {
+    width: 100%;
 }
 
 .toolbar-btn {
@@ -137,12 +126,39 @@ a {
 }
 
 #step {
-    position: fixed;
-    z-index: 10;
-    top: 600px;
-    left: 400px;
+    width: 100%;
+    background-color: #ffffff;
 }
 
+
+.step-btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.step-btn:last-child {
+    margin-bottom: 0;
+}
+
+
+.step-btn svg {
+    width: 36px;
+    height: 36px;
+    margin: auto;
+    transition: fill 0.2s;
+}
+
+.step-btn:hover svg {
+    fill: blue;
+}
+
+.step-btn:disabled {
+    opacity: 0.5;
+}
+
+.step-btn:disabled svg {
+    fill: black;
+}
 
 #scale {
     position: fixed;
@@ -156,7 +172,7 @@ a {
     background: transparent;
 }
 
-#scale-minus, #scale-plus{
+#scale-minus, #scale-plus {
     padding: 10px;
 }
 
@@ -178,6 +194,60 @@ a {
     background: aliceblue;
 }
 
+#params {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 3;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px grey;
+}
 
+#pen-panel {
+    position: fixed;
+    left: 70px;
+    top: 100px;
+    z-index: 5;
+
+    display: none;
+    flex-direction: column;
+}
+
+.pen-btn {
+    margin-bottom: 10px;
+    transition: fill 0.2s;
+}
+
+.pen-btn:hover {
+    fill: blue;
+}
+
+.pen-btn-active {
+    fill: blue;
+}
+
+.pen-btn:last-child {
+    margin-bottom: 0;
+}
+
+
+#text-form-btn {
+    display: block;
+    margin: auto;
+    padding: 5px 15px 5px 15px;
+    font-size: 17px;
+    background-color: #f7940c;
+
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#text-form-btn:hover {
+    background-color: #fdb149;
+}
 
 

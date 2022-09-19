@@ -7,10 +7,24 @@ export const SELECTORS = {
         id: 'canvas',
     },
 
+    EXPORTLINK: {
+        id: 'export-link',
+    },
+
     TOOLBAR: {
         id: 'toolbar',
         btnClass: 'toolbar-btn',
         activeBtnClass: 'toolbar-btn-active',
+        penPanel: {
+            id: "pen-panel",
+            btnClass: 'pen-btn',
+            activeBtnClass: 'pen-btn-active'
+        }
+    },
+
+    STEP: {
+        id: 'step',
+        stepBackBtn: 'step-back-btn'
     },
 
     SCALE: {
@@ -20,8 +34,8 @@ export const SELECTORS = {
         percentValue: 'scale-percent-value'
     },
 
-    GLOBALPARAMS: {
-        id: 'global-params',
+    PARAMS: {
+        id: 'params',
     },
 }
 
