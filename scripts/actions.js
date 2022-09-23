@@ -1,7 +1,7 @@
 import {canvas} from "./index.js";
 import {SELECTORS} from "./selectors.js";
 
-class Mode {
+export class Mode {
     constructor(btn) {
         this.btn = btn;
         this.mode = btn.dataset.mode;
@@ -14,8 +14,6 @@ class Mode {
 export class Select extends Mode {
     constructor(btn) {
         super(btn);
-
-        this.draw();
     }
 
     renderParams() {
@@ -43,7 +41,6 @@ export class Pen extends Mode {
         };
 
         this.penPanel = document.getElementById(SELECTORS.TOOLBAR.penPanel.id);
-        this.draw();
     }
 
     altKeyPressed(evt) {
@@ -159,7 +156,6 @@ export class Comment extends Mode {
             mousedown: this.downHandler.bind(this),
             textFormBtn:this.renderText.bind(this),
         }
-        this.draw();
     }
 
     downHandler(event) {
@@ -227,23 +223,3 @@ export class Comment extends Mode {
         })
     }
 }
-
-
-// class Shapes extends Canvas {
-//     constructor() {
-//         super();
-//     }
-//
-//     mouseClickHandler(event) {
-//         console.log(event.offsetX);
-//     }
-//
-//     draw() {
-//         $canvas.addEventListener('click', this.mouseClickHandler)
-//         console.log("shapes draw")
-//     }
-//
-//     exit() {
-//         $canvas.removeEventListener('click', this.mouseClickHandler);
-//     }
-// }

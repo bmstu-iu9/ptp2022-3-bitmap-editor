@@ -1,6 +1,7 @@
 import {SELECTORS} from '/scripts/selectors.js';
 
 import {Select, Pen, Comment} from '/scripts/actions.js';
+import {Shapes} from '/scripts/shapes.js';
 
 //======Canceling default browser actions===============
 
@@ -45,6 +46,7 @@ fabric.Object.prototype.cornerStyle = 'circle';
 
 //==============================================
 
+/*
 let rect = new fabric.Circle({
     left: 200,
     top: 200,
@@ -78,6 +80,7 @@ canvas.add(rect);
 canvas.add(rect2);
 canvas.add(txt);
 canvas.add(ellipse);
+*/
 
 //===============GRID===============
 
@@ -85,34 +88,39 @@ canvas.add(ellipse);
 
 //==============ACTIONS=================
 
-
-function switchClassMode(btn) {
-    switch (btn.dataset.mode) {
-        case 'SELECT':
-            return new Select(btn);
-        case 'PEN':
-            return new Pen(btn);
-        case 'COMMENT':
-            return new Comment(btn);
-    }
-}
-
-let action;
+let modeObjects = {};
+let activeModeBtn;
 
 let toolbarBtns = document.getElementsByClassName(SELECTORS.TOOLBAR.btnClass);
 for (let toolbarBtn of toolbarBtns) {
+    modeObjects[toolbarBtn.dataset.mode] = function (toolbarBtn) {
+        switch (toolbarBtn.dataset.mode) {
+            case 'SELECT':
+                return new Select(toolbarBtn);
+            case 'PEN':
+                return new Pen(toolbarBtn);
+            case 'COMMENT':
+                return new Comment(toolbarBtn);
+            case 'SHAPES' :
+                return new Shapes(toolbarBtn);
+        }
+    }(toolbarBtn);
     if (toolbarBtn.classList.contains(SELECTORS.TOOLBAR.activeBtnClass)) {
-        action = switchClassMode(toolbarBtn);
+        activeModeBtn = toolbarBtn;
+        modeObjects[toolbarBtn.dataset.mode].draw();
     }
     toolbarBtn.addEventListener('click', evt => {
-        if (action.btn.dataset.mode !== toolbarBtn.dataset.mode) {
-            action.btn.classList.remove(SELECTORS.TOOLBAR.activeBtnClass);
-            action.exit();
-            action = switchClassMode(toolbarBtn);
-            action.btn.classList.add(SELECTORS.TOOLBAR.activeBtnClass);
+        if (activeModeBtn.dataset.mode !== toolbarBtn.dataset.mode) {
+            activeModeBtn.classList.remove(SELECTORS.TOOLBAR.activeBtnClass);
+            modeObjects[activeModeBtn.dataset.mode].exit();
+            activeModeBtn = toolbarBtn;
+            activeModeBtn.classList.add(SELECTORS.TOOLBAR.activeBtnClass);
+            modeObjects[activeModeBtn.dataset.mode].draw();
         }
     })
 }
+
+console.log(modeObjects);
 
 //================STEP BACK================
 
@@ -155,7 +163,7 @@ let exportLink = document.getElementById(SELECTORS.EXPORTLINK.id);
 exportLink.style.cursor = 'pointer';
 
 
-exportLink.onclick = ()=> {
+exportLink.onclick = () => {
     exportLink.setAttribute('href', canvas.toDataURL());
     exportLink.setAttribute('download', 'image.png');
 }
