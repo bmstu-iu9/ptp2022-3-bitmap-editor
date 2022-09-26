@@ -14,7 +14,6 @@ class Mode {
 export class Select extends Mode {
     constructor(btn) {
         super(btn);
-
         this.draw();
     }
 

@@ -40,42 +40,6 @@ fabric.Object.prototype.transparentCorners = false;
 fabric.Object.prototype.cornerColor = 'blue';
 fabric.Object.prototype.cornerStyle = 'circle';
 
-//==============================================
-
-let rect = new fabric.Circle({
-    left: 200,
-    top: 200,
-    fill: 'red',
-    radius: 100,
-});
-
-let rect2 = new fabric.Rect({
-    left: 900,
-    top: 200,
-    fill: 'red',
-    width: 200,
-    height: 200,
-});
-
-let txt = new fabric.Text('hello world!', {
-    left: 500,
-    top: 400,
-});
-
-let ellipse = new fabric.Ellipse({
-    left: 500,
-    top: 500,
-    rx: 100,
-    ry: 10,
-    radius: 400,
-    fill: 'yellow',
-});
-
-canvas.add(rect);
-canvas.add(rect2);
-canvas.add(txt);
-canvas.add(ellipse);
-
 //===============GRID===============
 
 //TODO: бесконечная фоновая сетка
