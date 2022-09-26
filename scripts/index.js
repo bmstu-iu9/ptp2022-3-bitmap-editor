@@ -19,19 +19,16 @@ window.oncontextmenu = function (ev) {
 export const canvas = new fabric.Canvas(SELECTORS.CANVAS.id, {
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight,
-    skipOffScreen: false,
     selection: false,
 });
 
 canvas.on('mouse:up', (event) => {
-    console.log(canvas.getActiveObjects().length);
     if (canvas.getActiveObjects().length > 0) {
         canvas.getActiveObjects().forEach(obj => {
-            obj.bringToFront();
-            console.log(canvas.getObjects(), obj);
+            canvas.bringToFront(obj);
         });
     }
-})
+});
 
 //================CUSTOM canvas==============
 
@@ -43,44 +40,6 @@ canvas.selectionDashArray = [10, 15];
 fabric.Object.prototype.transparentCorners = false;
 fabric.Object.prototype.cornerColor = 'blue';
 fabric.Object.prototype.cornerStyle = 'circle';
-
-//==============================================
-
-/*
-let rect = new fabric.Circle({
-    left: 200,
-    top: 200,
-    fill: 'red',
-    radius: 100,
-});
-
-let rect2 = new fabric.Rect({
-    left: 900,
-    top: 200,
-    fill: 'red',
-    width: 200,
-    height: 200,
-});
-
-let txt = new fabric.Text('hello world!', {
-    left: 500,
-    top: 400,
-});
-
-let ellipse = new fabric.Ellipse({
-    left: 500,
-    top: 500,
-    rx: 100,
-    ry: 10,
-    radius: 400,
-    fill: 'yellow',
-});
-
-canvas.add(rect);
-canvas.add(rect2);
-canvas.add(txt);
-canvas.add(ellipse);
-*/
 
 //===============GRID===============
 

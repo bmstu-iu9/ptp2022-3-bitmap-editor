@@ -57,7 +57,7 @@ export class Pen extends Mode {
 
     unSelectPath() {
         let lastPath = canvas.item(canvas.size() - 1);
-        lastPath.selectable = false;
+        lastPath.perPixelTargetFind = true;
         lastPath.hoverCursor = '';
     }
 
@@ -144,7 +144,7 @@ export class Pen extends Mode {
         this.params.removeEventListener('input', this.handlers.formInput)
         window.removeEventListener('keydown', this.handlers.altKeyDown);
         window.removeEventListener('keyup', this.handlers.altKeyUp);
-        canvas.off('path:created', this.handlers.unSelect);
+        // canvas.off('path:created', this.handlers.unSelect);
     }
 }
 
