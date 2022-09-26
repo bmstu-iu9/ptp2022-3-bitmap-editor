@@ -103,6 +103,18 @@ canvas.on("after:render", () => {
     }
 })
 
+//===============EXPORT=================
+ 
+let exportLink = document.getElementById(SELECTORS.EXPORTLINK.id);
+ 
+exportLink.style.cursor = 'pointer';
+ 
+ 
+exportLink.onclick = () => {
+    exportLink.setAttribute('href', canvas.toDataURL());
+    exportLink.setAttribute('download', 'image.png');
+}
+
 //======================================
 
 canvas.on('mouse:move', () => {
