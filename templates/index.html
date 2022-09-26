@@ -71,6 +71,8 @@
                     </svg>
                 </button>
             </div>
+
+
             <div id="step" class="left-panel-item">
                 <button id="step-back-btn" class="step-btn">
                     <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +139,7 @@
                      style="enable-background:new 0 0 36 36;" xml:space="preserve"
                 >
 <g>
-	<g id="circles">
+	<g>
 		<path d="M374.85,357c-20.399,58.65-76.5,102-145.35,102c-84.15,0-153-68.85-153-153c0-66.3,43.35-122.4,102-145.35
 			c0-2.55,0-5.1,0-7.65c0-25.5,5.1-51,12.75-73.95C84.15,96.9,0,191.25,0,306c0,127.5,102,229.5,229.5,229.5
 			c114.75,0,209.1-84.15,226.95-191.25C433.5,351.9,408,357,382.5,357C379.95,357,377.4,357,374.85,357z"/>
@@ -146,6 +148,26 @@
 	</g>
 </g>
 </svg>
+            </button>
+        </div>
+
+        <div id="shapes-panel" class="invisible left-panel-item">
+            <button class="shapes-btn shapes-btn-active" data-mode="RECTANGLE">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                    <path fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2" d="M3 3h18v18H3z"/>
+                </svg>
+            </button>
+            <button class="shapes-btn" id="arc-btn" data-mode="ELLIPSE">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor"
+                            stroke-width="2"/>
+                </svg>
+            </button>
+            <button class="shapes-btn" id="triangle-btn" data-mode="TRIANGLE">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+                    <path fill="currentColor" fill-rule="nonzero"
+                          d="M12 4.922L4.197 19h15.606L12 4.922zm.875-2.58l9.484 17.175A1 1 0 0 1 21.484 21H2.516a1 1 0 0 1-.875-1.483l9.483-17.175a1 1 0 0 1 1.751 0z"/>
+                </svg>
             </button>
         </div>
 
@@ -184,6 +206,7 @@
     <script type="module" src="/scripts/controlObjects.js"></script>
     <script type="module" src="/scripts/scale.js"></script>
     <script type="module" src="/scripts/pan.js"></script>
+    <script type="module" src="/scripts/shapes.js"></script>
 </div>
 </body>
 </html>

@@ -19,6 +19,11 @@ export const SELECTORS = {
             id: "pen-panel",
             btnClass: 'pen-btn',
             activeBtnClass: 'pen-btn-active'
+        },
+        shapesPanel: {
+            id: 'shapes-panel',
+            btnClass: 'shapes-btn',
+            activeBtnClass: 'shapes-btn-active',
         }
     },
 
