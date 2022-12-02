@@ -37,30 +37,32 @@ export class Pen extends Mode {
             altKeyDown: this.altKeyPressed.bind(this),
             altKeyUp: this.altKeyUnPressed.bind(this),
             unSelect: this.unSelectPath,
-            formInput: ()=>{this.applyProps()},
+            formInput: () => {
+                this.applyProps()
+            },
         };
- 
+
         this.penPanel = document.getElementById(SELECTORS.TOOLBAR.penPanel.id);
     }
- 
+
     altKeyPressed(evt) {
         if (evt.altKey) {
             canvas.isDrawingMode = false;
         }
     }
- 
+
     altKeyUnPressed(evt) {
         if (!evt.altKey) {
             canvas.isDrawingMode = true;
         }
     }
- 
+
     unSelectPath() {
         let lastPath = canvas.item(canvas.size() - 1);
         lastPath.perPixelTargetFind = true;
         lastPath.hoverCursor = '';
     }
- 
+
     renderParams() {
         this.params.innerHTML =
             `<p>
@@ -80,13 +82,13 @@ export class Pen extends Mode {
                 <input type="range" name="" id="shadow-blur" value="0" min="0" max="100">
             </p>`;
     }
- 
+
     applyProps() {
         let color = document.getElementById('color');
         let width = document.getElementById('width');
         let shadowColor = document.getElementById('shadow-color');
         let shadowBlur = document.getElementById('shadow-blur');
- 
+
         canvas.freeDrawingBrush.width = parseInt(width.value, 10);
         canvas.freeDrawingBrush.color = color.value;
         canvas.freeDrawingBrush.shadow = new fabric.Shadow({
@@ -97,7 +99,7 @@ export class Pen extends Mode {
             affectStroke: true,
         });
     }
- 
+
     switchClassMode(btn) {
         switch (btn.dataset.mode) {
             case 'PENCIL':
@@ -108,11 +110,11 @@ export class Pen extends Mode {
                 return new fabric.CircleBrush(canvas);
         }
     }
- 
+
     draw() {
         canvas.isDrawingMode = true;
         this.renderParams();
- 
+
         this.penPanel.style.display = 'flex';
         let activeBtn;
         let penBtns = document.getElementsByClassName(SELECTORS.TOOLBAR.penPanel.btnClass);
@@ -129,14 +131,14 @@ export class Pen extends Mode {
                 this.applyProps();
             })
         }
- 
+
         this.applyProps();
         this.params.addEventListener('input', this.handlers.formInput);
         window.addEventListener('keydown', this.handlers.altKeyDown);
         window.addEventListener('keyup', this.handlers.altKeyUp);
         canvas.on('path:created', this.handlers.unSelect);
     }
- 
+
     exit() {
         this.params.innerHTML = ``;
         this.penPanel.style.display = 'none';
@@ -147,22 +149,22 @@ export class Pen extends Mode {
         // canvas.off('path:created', this.handlers.unSelect);
     }
 }
- 
+
 export class Comment extends Mode {
     constructor(btn) {
         super(btn);
         this.selectableObjects = [];
         this.handlers = {
             mousedown: this.downHandler.bind(this),
-            textFormBtn:this.renderText.bind(this),
+            textFormBtn: this.renderText.bind(this),
         }
     }
- 
+
     downHandler(event) {
         let evt = event.e;
     }
- 
- 
+
+
     renderParams() {
         this.params.innerHTML =
             `<p>
@@ -181,12 +183,12 @@ export class Comment extends Mode {
                 <input type="button" value="Ввод" id="text-form-btn">
             </p>`;
     }
- 
+
     renderText() {
         let text = document.getElementById('text');
         let fontColor = document.getElementById('font-color');
         let fontSize = document.getElementById('font-size');
- 
+
         if (text.value !== '') {
             let textObj = new fabric.IText(text.value, {
                 left: (canvas.vptCoords.tr.x + canvas.vptCoords.tl.x) / 2,
@@ -194,11 +196,11 @@ export class Comment extends Mode {
                 fill: fontColor.value,
                 fontSize: parseInt(fontSize.value, 10),
             })
- 
+
             canvas.add(textObj);
         }
     }
- 
+
     draw() {
         this.renderParams();
         this.textFormBtn = document.getElementById('text-form-btn');
@@ -209,11 +211,11 @@ export class Comment extends Mode {
                 obj.selectable = false;
             }
         });
- 
- 
+
+
         canvas.on('mouse:down', this.handlers.mousedown);
     }
- 
+
     exit() {
         this.params.innerHTML = ``;
         canvas.off('mouse:down', this.handlers.mousedown);
@@ -223,3 +225,92 @@ export class Comment extends Mode {
         })
     }
 }
+
+
+export class Line extends Mode {
+    constructor(btn) {
+        super(btn);
+        this.btn = btn;
+        this.handlers = {
+            downHandler: this.downHandler.bind(this),
+            moveHandler: this.moveHandler.bind(this),
+            upHandler: this.upHandler.bind(this),
+            formInput: () => {
+                this.applyProps()
+            },
+        }
+    }
+
+    applyProps() {
+        let color = document.getElementById('color');
+        let width = document.getElementById('width');
+
+        this.props.stroke = color.value;
+        this.props.width = width.value;
+    }
+
+    renderParams() {
+        this.params.innerHTML =
+            `<p>
+                <label for="color">Цвет:</label>
+                <input type="color" name="" id="color" value="#000000">
+            </p>
+            <p>
+                <label for="width">Толщина:</label>
+                <input type="range" name="" id="width" value="5" min="1" max="150">
+            </p>`;
+    }
+
+
+    draw() {
+        this.renderParams();
+        this.props = {
+            stroke: 'red',
+            strokeWidth: 5,
+        }
+        this.props.stroke = document.getElementById('color');
+        this.props.strokeWidth = document.getElementById('width');
+        canvas.on("mouse:down", this.handlers.downHandler);
+        canvas.on("mouse:up", this.handlers.upHandler);
+        this.params.addEventListener('input', this.handlers.formInput);
+    }
+
+    downHandler(event) {
+        if (canvas.getActiveObjects().length === 0) {
+            let evt = event.e;
+            this.line = new fabric.Line;
+            this.line.set({
+                x1: evt.clientX,
+                y1: evt.clientY,
+                x2: evt.clientX,
+                y2: evt.clientY,
+                stroke: this.props.stroke,
+                strokeWidth: parseInt(this.props.strokeWidth.value, 10),
+            });
+            this.constPoint = {
+                x: this.line.x1,
+                y: this.line.y1
+            }
+            canvas.add(this.line);
+            canvas.on("mouse:move", this.handlers.moveHandler);
+        }
+    }
+
+    moveHandler(event) {
+        this.line.set({
+            x2: event.e.clientX,
+            y2: event.e.clientY
+        })
+        canvas.renderAll();
+    }
+
+    upHandler(event) {
+        canvas.off("mouse:move", this.handlers.moveHandler);
+    }
+
+    exit() {
+        canvas.off("mouse:down", this.handlers.downHandler);
+        canvas.off("mouse:up", this.handlers.upHandler);
+    }
+}
+

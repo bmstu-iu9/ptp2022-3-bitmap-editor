@@ -1,6 +1,6 @@
 import {SELECTORS} from '/scripts/selectors.js';
 
-import {Select, Pen, Comment} from '/scripts/actions.js';
+import {Select, Pen, Comment, Line} from '/scripts/actions.js';
 import {Shapes} from '/scripts/shapes.js';
 
 //======Canceling default browser actions===============
@@ -62,6 +62,8 @@ for (let toolbarBtn of toolbarBtns) {
                 return new Comment(toolbarBtn);
             case 'SHAPES' :
                 return new Shapes(toolbarBtn);
+            case 'LINE':
+                return new Line(toolbarBtn);
         }
     }(toolbarBtn);
     if (toolbarBtn.classList.contains(SELECTORS.TOOLBAR.activeBtnClass)) {
