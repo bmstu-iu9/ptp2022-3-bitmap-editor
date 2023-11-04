@@ -119,6 +119,7 @@ export class Pen extends Mode {
         let activeBtn;
         let penBtns = document.getElementsByClassName(SELECTORS.TOOLBAR.penPanel.btnClass);
         for (let penBtn of penBtns) {
+            //chuyển trạng thái của bút
             if (penBtn.classList.contains(SELECTORS.TOOLBAR.penPanel.activeBtnClass)) {
                 canvas.freeDrawingBrush = this.switchClassMode(penBtn);
                 activeBtn = penBtn;
@@ -277,13 +278,12 @@ export class Line extends Mode {
 
     downHandler(event) {
         if (canvas.getActiveObjects().length === 0) {
-            let evt = event.e;
             this.line = new fabric.Line;
             this.line.set({
-                x1: evt.clientX,
-                y1: evt.clientY,
-                x2: evt.clientX,
-                y2: evt.clientY,
+                x1: event.e.clientX,
+                y1: event.e.clientY,
+                x2: event.e.clientX,
+                y2: event.e.clientY,
                 stroke: this.props.stroke,
                 strokeWidth: parseInt(this.props.strokeWidth.value, 10),
             });
@@ -295,14 +295,36 @@ export class Line extends Mode {
             canvas.on("mouse:move", this.handlers.moveHandler);
         }
     }
-
+    
     moveHandler(event) {
-        this.line.set({
-            x2: event.e.clientX,
-            y2: event.e.clientY
-        })
+        let deltaX = event.e.clientX - this.constPoint.x;
+        let deltaY = event.e.clientY - this.constPoint.y;
+        let absDeltaX = Math.abs(deltaX);
+        let absDeltaY = Math.abs(deltaY);
+    
+        if (event.e.shiftKey) {
+            if (absDeltaX >= absDeltaY) {
+                // Move horizontally
+                this.line.set({
+                    x2: event.e.clientX,
+                    y2: this.constPoint.y
+                });
+            } else {
+                // Move vertically
+                this.line.set({
+                    x2: this.constPoint.x,
+                    y2: event.e.clientY
+                });
+            }
+        } else {
+            this.line.set({
+                x2: event.e.clientX,
+                y2: event.e.clientY
+            });
+        }
         canvas.renderAll();
     }
+
 
     upHandler(event) {
         canvas.off("mouse:move", this.handlers.moveHandler);
@@ -313,4 +335,3 @@ export class Line extends Mode {
         canvas.off("mouse:up", this.handlers.upHandler);
     }
 }
-
